@@ -5,7 +5,6 @@ clientes = 'pablo,ricardo,'
 
 def crear_cliente(nombre_cliente):
     global clientes
-   
     clientes += nombre_cliente
     _add_coma()
 

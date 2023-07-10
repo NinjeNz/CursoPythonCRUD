@@ -1,12 +1,25 @@
+from colorama import Fore, init #Importamos los módulos que ocupamos 
 
+#Colorama settings
+init() #Es necesario para empezar a colorear
+FR = Fore.RESET
+FRED = Fore.RED
+FGREEN = Fore.GREEN
+FGREENX = Fore.LIGHTGREEN_EX
+FYE = Fore.YELLOW
+FYEX = Fore.LIGHTYELLOW_EX
+FCYAN = Fore.CYAN
 
 clientes = 'pablo,ricardo,'
 
 
 def crear_cliente(nombre_cliente):
     global clientes
-    clientes += nombre_cliente
-    _add_coma()
+    if nombre_cliente not in clientes:
+        clientes += nombre_cliente
+        _add_coma()
+    else:
+        print('EL cliente ya se encuentra en la lista de clientes')
 
 
 def lista_clientes():
@@ -20,14 +33,16 @@ def _add_coma():
 
 
 def _print_welcome():
-    print('BIENVENIDO A RUGGERI VENTAS')
+    print('BIENVENIDO A' + FRED + ' RUGGERI VENTAS' + FR)
     print('*' * 50)
     print('Que quieres hacer hoy?')
     print('[C]rear Cliente')
     print('[B]orrar Cliente')
-
+    print('[S]alir')
 
 if __name__ == '__main__':
+   
+ while (True):
     _print_welcome()
 
     command = input()
@@ -38,5 +53,7 @@ if __name__ == '__main__':
         lista_clientes()
     elif command == 'B':
         pass
+    elif command == 'S':
+        break;
     else:
         print('Comando Invalido')

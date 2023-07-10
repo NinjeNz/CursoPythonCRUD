@@ -11,18 +11,32 @@ def crear_cliente(nombre_cliente):
 
 def lista_clientes():
     global clientes
-
     print(clientes)
+
 
 def _add_coma():
     global clientes
-    
     clientes += ','
 
 
-if __name__ == '__main__':
-    lista_clientes()
+def _print_welcome():
+    print('BIENVENIDO A RUGGERI VENTAS')
+    print('*' * 50)
+    print('Que quieres hacer hoy?')
+    print('[C]rear Cliente')
+    print('[B]orrar Cliente')
 
-    crear_cliente('Luis')
-   
-    lista_clientes()
+
+if __name__ == '__main__':
+    _print_welcome()
+
+    command = input()
+
+    if command == 'C':
+        nombre_cliente = input('Cual es el nombre del cliente?')
+        crear_cliente(nombre_cliente)
+        lista_clientes()
+    elif command == 'B':
+        pass
+    else:
+        print('Comando Invalido')

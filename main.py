@@ -54,6 +54,7 @@ if __name__ == '__main__':
     elif command == 'B':
         pass
     elif command == 'S':
+        print('Hasta la proxima')
         break;
     else:
         print('Comando Invalido')

@@ -10,6 +10,7 @@ FYE = Fore.YELLOW
 FYEX = Fore.LIGHTYELLOW_EX
 FCYAN = Fore.CYAN
 
+
 clientes = 'pablo,ricardo,'
 
 
@@ -33,22 +34,25 @@ def _add_coma():
 
 
 def _print_welcome():
-    print('BIENVENIDO A' + FRED + ' RUGGERI VENTAS' + FR)
-    print('*' * 50)
-    print('Que quieres hacer hoy?')
-    print('[C]rear Cliente')
-    print('[B]orrar Cliente')
-    print('[S]alir')
+    #print('BIENVENIDO A' + FRED + ' RUGGERI VENTAS' + FR)
+    #print('*' * 50)
+    #print('Que quieres hacer hoy?')
+    print(FYE + '[C]rear Cliente' + FR)
+    print(FYE + '[B]orrar Cliente' + FR)
+    print(FYE + '[S]alir' + FR)
 
 if __name__ == '__main__':
+    print('BIENVENIDO A' + FRED + ' RUGGERI VENTAS' + FR)
+    print('*' * 50)
+    print(FCYAN + 'Que quieres hacer hoy?' + FR)
    
- while (True):
+while (True):
     _print_welcome()
 
-    command = input()
+    command = input().upper()
 
     if command == 'C':
-        nombre_cliente = input('Cual es el nombre del cliente?')
+        nombre_cliente = input('Cual es el nombre del cliente?').capitalize()
         crear_cliente(nombre_cliente)
         lista_clientes()
     elif command == 'B':

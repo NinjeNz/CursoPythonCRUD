@@ -32,6 +32,14 @@ def actualizar_cliente(nombre_cliente, nombre_cliente_actualizado):
         print('Cliente no se encuentra en la lista de clientes')
 
 
+def borrar_cliente(nombre_cliente):
+    global clientes
+    if nombre_cliente in clientes:
+        clientes = clientes.replace(nombre_cliente + ',', '')
+    else:
+        print('El cliente no se encuentra registrado en la lista de clientes')
+
+
 def lista_clientes():
     global clientes
     print(clientes)
@@ -71,7 +79,9 @@ while (True):
         crear_cliente(nombre_cliente)
         lista_clientes()
     elif command == 'B':
-        pass
+        nombre_cliente = _get_nombre_cliente()
+        borrar_cliente(nombre_cliente)
+        lista_clientes()
     elif command == 'A':
         nombre_cliente = _get_nombre_cliente()
         nombre_cliente_actualizado = input('Cual es el nuevo nombre?').title()

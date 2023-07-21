@@ -40,6 +40,10 @@ def borrar_cliente(nombre_cliente):
         print('El cliente no se encuentra registrado en la lista de clientes')
 
 
+def buscar_cliente(nombre_cliente):
+    lista_clientes = clientes.split(',')
+
+
 def lista_clientes():
     global clientes
     print(clientes)
@@ -55,8 +59,9 @@ def _print_welcome():
     # print('*' * 50)
     # print('Que quieres hacer hoy?')
     print(FYE + '[C]rear Cliente' + FR)
-    print(FYE + '[B]orrar Cliente' + FR)
+    print(FYE + '[E]liminar Cliente' + FR)
     print(FYE + '[A]ctualizara Cliente' + FR)
+    print(FYE + '[B]uscar' + FR)
     print(FYE + '[S]alir' + FR)
 
 
@@ -78,7 +83,7 @@ while (True):
         nombre_cliente = _get_nombre_cliente()
         crear_cliente(nombre_cliente)
         lista_clientes()
-    elif command == 'B':
+    elif command == 'E':
         nombre_cliente = _get_nombre_cliente()
         borrar_cliente(nombre_cliente)
         lista_clientes()
@@ -87,6 +92,16 @@ while (True):
         nombre_cliente_actualizado = input('Cual es el nuevo nombre?').title()
         actualizar_cliente(nombre_cliente, nombre_cliente_actualizado)
         lista_clientes()
+    elif command == 'B':
+        nombre_cliente = _get_nombre_cliente()
+        found = buscar_cliente(nombre_cliente)
+
+        if found:
+            print('El cliente se encuentra registrado en la lista de clientes')
+        else:
+            print('El cliente {} no se encuentra registrado en la lista de clientes'.format(
+                nombre_cliente))
+
     elif command == 'S':
         print('Hasta la proxima')
         break

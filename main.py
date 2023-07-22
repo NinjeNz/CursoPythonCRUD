@@ -43,6 +43,12 @@ def borrar_cliente(nombre_cliente):
 def buscar_cliente(nombre_cliente):
     lista_clientes = clientes.split(',')
 
+    for cliente in lista_clientes:
+        if cliente != nombre_cliente:
+            continue
+        else:
+            return True
+
 
 def lista_clientes():
     global clientes

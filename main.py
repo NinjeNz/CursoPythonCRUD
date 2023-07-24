@@ -1,3 +1,4 @@
+import sys
 from colorama import Fore, init  # Importamos los módulos que ocupamos
 
 # Colorama settings
@@ -72,7 +73,19 @@ def _print_welcome():
 
 
 def _get_nombre_cliente():
-    return input('Cual es el nombre del cliente?').title()
+    nombre_cliente = None
+    while not nombre_cliente:
+        nombre_cliente = input(
+            'Cual es el nombre del cliente?').title().strip()
+
+        if nombre_cliente == 'Exit':
+            nombre_cliente = None
+            break
+
+    if not nombre_cliente:
+        sys.exit()
+
+    return nombre_cliente
 
 
 if __name__ == '__main__':

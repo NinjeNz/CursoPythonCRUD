@@ -1,5 +1,6 @@
 import sys
 from colorama import Fore, init  # Importamos los módulos que ocupamos
+from tabulate import tabulate
 
 # Colorama settings
 init()  # Es necesario para empezar a colorear
@@ -12,14 +13,14 @@ FYEX = Fore.LIGHTYELLOW_EX
 FCYAN = Fore.CYAN
 
 
-clientes = 'Pablo,Ricardo,'
+clientes = ['Pablo', 'Ricardo']
 
 
 def crear_cliente(nombre_cliente):
     global clientes
     if nombre_cliente not in clientes:
-        clientes += nombre_cliente
-        _add_coma()
+        clientes.append(nombre_cliente)  # clientes += nombre_cliente
+        # _add_coma() -- Ya no se necesita desde que la variable clientes paso de ser string a una lista.
     else:
         print('EL cliente ya se encuentra en la lista de clientes')
 
@@ -27,8 +28,8 @@ def crear_cliente(nombre_cliente):
 def actualizar_cliente(nombre_cliente, nombre_cliente_actualizado):
     global clientes
     if nombre_cliente in clientes:
-        clientes = clientes.replace(
-            nombre_cliente + ',', nombre_cliente_actualizado + ',')
+        index = clientes.index(nombre_cliente)
+        clientes[index] = nombre_cliente_actualizado
     else:
         print('Cliente no se encuentra en la lista de clientes')
 
@@ -36,15 +37,13 @@ def actualizar_cliente(nombre_cliente, nombre_cliente_actualizado):
 def borrar_cliente(nombre_cliente):
     global clientes
     if nombre_cliente in clientes:
-        clientes = clientes.replace(nombre_cliente + ',', '')
+        clientes.remove(nombre_cliente)
     else:
         print('El cliente no se encuentra registrado en la lista de clientes')
 
 
 def buscar_cliente(nombre_cliente):
-    lista_clientes = clientes.split(',')
-
-    for cliente in lista_clientes:
+    for cliente in clientes:
         if cliente != nombre_cliente:
             continue
         else:
@@ -52,13 +51,17 @@ def buscar_cliente(nombre_cliente):
 
 
 def lista_clientes():
-    global clientes
-    print(clientes)
+    if clientes:
+        print('Lista de Clientes :')
+        show = []
+        for idx, name in enumerate(clientes):
+            show.append([idx+1, name])
+        print(tabulate(show, headers=['N°', 'Name'], tablefmt='fancy_grid'))
+    else:
+        print(' No hay clientes registrados')
 
-
-def _add_coma():
-    global clientes
-    clientes += ','
+    # for idx, cliente in enumerate(clientes):
+        # print('{}: {}'.format(idx, cliente))
 
 
 def _print_welcome():
@@ -66,6 +69,7 @@ def _print_welcome():
     # print('*' * 50)
     # print('Que quieres hacer hoy?')
     print(FYE + '[C]rear Cliente' + FR)
+    print(FYE + '[L]ista Clientes' + FR)
     print(FYE + '[E]liminar Cliente' + FR)
     print(FYE + '[A]ctualizara Cliente' + FR)
     print(FYE + '[B]uscar' + FR)
@@ -101,6 +105,8 @@ while (True):
     if command == 'C':
         nombre_cliente = _get_nombre_cliente()
         crear_cliente(nombre_cliente)
+        lista_clientes()
+    elif command == 'L':
         lista_clientes()
     elif command == 'E':
         nombre_cliente = _get_nombre_cliente()

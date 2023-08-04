@@ -13,13 +13,33 @@ FYEX = Fore.LIGHTYELLOW_EX
 FCYAN = Fore.CYAN
 
 
-clientes = ['Pablo', 'Ricardo']
+# clientes = ['Pablo', 'Ricardo'] -- Esto es una lista
+clientes = [
+    {
+        'nombre': 'Abilene',
+        'empresa': 'Ruggeri Gelato',
+        'email': 'abilene.gaxiola@ruggerigelato.com',
+        'puesto': 'Gerente de ventas',
+    },
+    {
+        'nombre': 'David',
+        'empresa': 'Ruggeri Gelato',
+        'email': 'david.hernandez@ruggerigelato.com',
+        'puesto': 'Director',
+    },
+    {
+        'nombre': 'Luis',
+        'empresa': 'Ruggeri Gelato',
+        'email': 'luis.urias@ruggerigelato.com',
+        'puesto': 'Gerente de sistemas',
+    }
+]
 
 
-def crear_cliente(nombre_cliente):
+def crear_cliente(client):  # def crear_cliente(nombre_cliente):
     global clientes
-    if nombre_cliente not in clientes:
-        clientes.append(nombre_cliente)  # clientes += nombre_cliente
+    if client not in clientes:
+        clientes.append(client)  # clientes += nombre_cliente
         # _add_coma() -- Ya no se necesita desde que la variable clientes paso de ser string a una lista.
     else:
         print('EL cliente ya se encuentra en la lista de clientes')
@@ -51,17 +71,23 @@ def buscar_cliente(nombre_cliente):
 
 
 def lista_clientes():
-    if clientes:
+    """if clientes:
         print('Lista de Clientes :')
         show = []
         for idx, name in enumerate(clientes):
             show.append([idx+1, name])
         print(tabulate(show, headers=['N°', 'Name'], tablefmt='fancy_grid'))
     else:
-        print(' No hay clientes registrados')
+        print(' No hay clientes registrados')"""
 
-    # for idx, cliente in enumerate(clientes):
-        # print('{}: {}'.format(idx, cliente))
+    for idx, cliente in enumerate(clientes):
+        print('{uid} | {nombre} | {empresa} | {email} | {puesto}'.format(
+            uid=idx,
+            nombre=cliente['nombre'],
+            empresa=cliente['empresa'],
+            email=cliente['email'],
+            puesto=cliente['puesto'])
+        )
 
 
 def _print_welcome():
@@ -74,6 +100,13 @@ def _print_welcome():
     print(FYE + '[A]ctualizara Cliente' + FR)
     print(FYE + '[B]uscar' + FR)
     print(FYE + '[S]alir' + FR)
+
+
+def _get_client_field(field_name):
+    field = None
+    while not field:
+        field = input('Cual es la/el {} del cliente?'.format(field_name))
+    return field
 
 
 def _get_nombre_cliente():
@@ -103,8 +136,13 @@ while (True):
     command = input().upper()
 
     if command == 'C':
-        nombre_cliente = _get_nombre_cliente()
-        crear_cliente(nombre_cliente)
+        cliente = {
+            'nombre': _get_client_field('nombre'),
+            'empresa': _get_client_field('empresa'),
+            'email': _get_client_field('email'),
+            'puesto': _get_client_field('puesto'),
+        }
+        crear_cliente(cliente)
         lista_clientes()
     elif command == 'L':
         lista_clientes()

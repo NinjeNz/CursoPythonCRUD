@@ -89,12 +89,21 @@ def borrar_cliente(cliente_id):
 
 
 def buscar_cliente(nombre_cliente):
-    for cliente in clientes:
+    for indice, cliente in enumerate(clientes):
         # if cliente != nombre_cliente:
-        if cliente['nombre'] != nombre_cliente:
-            continue
-        else:
-            return True
+        if cliente['nombre'] == nombre_cliente:
+            return indice, True
+    return -1, False
+
+
+def imprimir_cliente_encontrado(index, cliente):
+    print('{uid} | {nombre} | {empresa} | {email} | {puesto}'.format(
+        uid=index,
+        nombre=cliente['nombre'],
+        empresa=cliente['empresa'],
+        email=cliente['email'],
+        puesto=cliente['puesto'])
+    )
 
 
 def _get_client_field(field_name, mensaje='Cual es la/el {} del cliente?'):
@@ -182,10 +191,12 @@ while (True):
     elif command == 'B':
         # nombre_cliente = _get_nombre_cliente()
         nombre_cliente = _get_client_field('nombre')
-        found = buscar_cliente(nombre_cliente)
-
+        indice_encontrado, found = buscar_cliente(nombre_cliente)
+        cliente_encontrado = clientes[indice_encontrado]
         if found:
             print('El cliente se encuentra registrado en la lista de clientes')
+            # print(clientes[indice_encontrado])
+            imprimir_cliente_encontrado(indice_encontrado, cliente_encontrado)
         else:
             print('El cliente {} no se encuentra registrado en la lista de clientes'.format(
                 nombre_cliente))
